@@ -7,13 +7,15 @@ import (
 
 type File struct{}
 
+const fileContents = "nginx config\n"
+
 func (_ File) Attr(ctx context.Context, attr *fuse.Attr) error {
 	attr.Inode = 2
 	attr.Mode = 0444
-	attr.Size = 4
+	attr.Size = uint64(len(fileContents))
 	return nil
 }
 
 func (_ File) ReadAll(ctx context.Context) ([]byte, error) {
-	return []byte(""), nil
+	return []byte(fileContents), nil
 }

@@ -1,10 +1,11 @@
 package etcfs
 
 import (
-	"bazil.org/fuse"
-	"golang.org/x/net/context"
 	"os"
+
+	"bazil.org/fuse"
 	"bazil.org/fuse/fs"
+	"golang.org/x/net/context"
 )
 
 type Dir struct{}
@@ -16,9 +17,18 @@ func (_ Dir) Attr(ctx context.Context, attr *fuse.Attr) error {
 }
 
 func (_ Dir) Lookup(ctx context.Context, name string) (fs.Node, error) {
+	if name != "nginx.conf" {
+		return nil, fuse.ENOENT
+	}
 	return File{}, nil
 }
 
 func (_ Dir) ReadDirAll(ctx context.Context) ([]fuse.Dirent, error) {
-	return []fuse.Dirent{}, nil
+	return []fuse.Dirent{
+		{
+			Inode: 2,
+			Name:  "nginx.conf",
+			Type:  fuse.DT_File,
+		},
+	}, nil
 }
