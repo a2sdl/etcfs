@@ -20,7 +20,14 @@ func (_ Dir) Lookup(ctx context.Context, name string) (fs.Node, error) {
 	if name != "nginx.conf" {
 		return nil, fuse.ENOENT
 	}
-	return File{}, nil
+	if kv, err := NewKVClient(); err != nil {
+		return nil, err
+	} else {
+		f := File{
+			KV: kv,
+		}
+		return f, nil
+	}
 }
 
 func (_ Dir) ReadDirAll(ctx context.Context) ([]fuse.Dirent, error) {
