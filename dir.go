@@ -31,11 +31,12 @@ func (_ Dir) Lookup(ctx context.Context, name string) (fs.Node, error) {
 }
 
 func (_ Dir) ReadDirAll(ctx context.Context) ([]fuse.Dirent, error) {
-	return []fuse.Dirent{
+	entries := []fuse.Dirent{
 		{
 			Inode: 2,
 			Name:  "nginx.conf",
 			Type:  fuse.DT_File,
 		},
-	}, nil
+	}
+	return entries, nil
 }
