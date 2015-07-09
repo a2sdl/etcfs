@@ -10,6 +10,7 @@ import (
 
 func main() {
 	mountpoint := "/Users/gtarcea/fuse/nginx"
+	fuse.Unmount(mountpoint)
 	conn, err := fuse.Mount(
 		mountpoint,
 		fuse.FSName("etcfs"),
