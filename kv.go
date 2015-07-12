@@ -17,6 +17,22 @@ func NewKVClient() (*KVClient, error) {
 	}
 }
 
+func (c *KVClient) GetCurrent(key, host string) (value string, err error) {
+	return c.Get("current/" + key)
+}
+
+func (c *KVClient) PutCurrent(key, host, value string) error {
+	return c.Put("current/" + key, value)
+}
+
+func (c *KVClient) GetVersion(key string, version uint64) (value string, err error) {
+	return "", nil
+}
+
+func (c *KVClient) PutVersion(key string, version uint64) error {
+	return nil
+}
+
 func (c *KVClient) Put(key, value string) error {
 	kv := &consulapi.KVPair{
 		Key:   key,
