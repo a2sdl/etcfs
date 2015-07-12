@@ -4,18 +4,12 @@ import "time"
 
 // A Service is a named service that has a set of templates associated with it.
 type Service struct {
-	ID      string    `gorethink:"id"`
-	Name    string    `gorethink:"name"`
-	Type    string    `gorethink:"_type"`   // The type of service.
-	Current bool      `gorethink:"current"` // Is this the current service definition.
-	CTime   time.Time `gorethink:"ctime"`
-}
-
-// Service2Template is a join table that maps a service to templates.
-type Service2Template struct {
-	ID         string `gorethink:"id"`
-	ServiceID  string `gorethink:"service_id"`
-	TemplateID string `gorethink:"template_id"`
+	ID       string    `gorethink:"id"`
+	Name     string    `gorethink:"name"`
+	Type     string    `gorethink:"_type"`   // The type of service.
+	Current  bool      `gorethink:"current"` // Is this the current service definition.
+	CTime    time.Time `gorethink:"ctime"`
+	Template Template  `gorethink:"template"`
 }
 
 // Template is a consul-template for service configuration/monitoring.
